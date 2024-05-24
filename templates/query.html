@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="title_for_form">
+        <h3>Вставьте большой текст в форму ниже</h3>
+    </div>
+    <div class="form">
+        <form method="post">
+            <textarea name="main_field" id="main_text_field_for_analiz" class="main_field" placeholder="  Вставьте большой текст">
+            </textarea><br>
+            <button class="button_for_send_big_text">
+                Готово
+            </button>
+        </form>
+    </div>
+{% endblock %}
