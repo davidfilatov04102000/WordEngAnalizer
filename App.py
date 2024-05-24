@@ -12,8 +12,7 @@ def main_page():
         text = request.form["main_field"]
         object_handler = CommonInterface(text)
         result = object_handler.get_result()
-        pprint.pprint(result)
-        return render_template("query.html")
+        return render_template("response.html", articles=result)
     else:
         return render_template("query.html")
 

@@ -6,13 +6,14 @@
     <div class="title_for_form">
         <h3>Результат</h3>
     </div>
+    {% for res in articles %}
     <div class="small_form_block">
         <form method="post">
             <div class="form_left_block">
-                <input type="text" class="field_for_small_form">
+                <input type="text" class="field_for_small_form" value="{{ res[0] }}">
             </div>
             <div class="form_middle_block">
-                <input type="text" class="field_for_small_form">
+                <input type="text" class="field_for_small_form" value="{{ res[1] }}">
             </div>
             <div class="form_right_block">
                 <button class="button_for_save_word">
@@ -21,4 +22,5 @@
             </div>
         </form>
     </div>
+    {% endfor %}
 {% endblock %}
