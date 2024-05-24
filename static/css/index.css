@@ -30,7 +30,7 @@ body {
     font-size: 20px;
 }
 
-.main_content_block {
+.container_block {
     float: left;
     width: 70%;
     margin-left: 15%;
@@ -40,7 +40,7 @@ body {
     border-radius: 7px;
 }
 
-.content_for_main_content_block {
+.block_for_content_in_container_block {
     float: left;
     width: 90%;
     margin-left: 5%;
