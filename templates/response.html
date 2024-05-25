@@ -10,18 +10,18 @@
     <div class="small_form_block">
         <form method="post">
             <div class="form_left_block">
-                <input type="text" class="field_for_small_form" value="{{ res[0] }}">
+                <input type="text" name="word" class="field_for_small_form" value="{{ res.word }}">
             </div>
             <div class="form_middle_block">
-                <input type="text" class="field_for_small_form" value="{{ res[1] }}">
+                <input type="text" name="repeat" class="field_for_small_form" value="{{ res.repeat }}">
             </div>
             <div class="form_right_block">
-                {% if res[1] == 1 %}
-                    <button class="button_for_save_word_red">
+                {% if res.bool_value == 0 %}
+                    <button type="submit" class="button_for_save_word_red">
                         +
                     </button>
                 {% else %}
-                    <button class="button_for_save_word_green">
+                    <button type="submit" class="button_for_save_word_green">
                         +
                     </button>
                 {% endif %}

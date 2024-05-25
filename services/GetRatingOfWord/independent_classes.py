@@ -1,3 +1,4 @@
+from .to_help import WordRepeat, WordRepeatBool
 from .letters_library import list_all_letters_base
 from typing import List
 
@@ -27,16 +28,15 @@ class WordListFromString:
 
 class HandlerValueAndDigitRepeat:
 
-    """Данный класс в качестве аргумента своему инициализатору принимает два списка:
-       1. список слов без повторений,
+    """Данный класс в качестве аргумента своему инициализатору принимает список:
        2. список слов с повторениями
 
        Метод get_result для каждого слова в списке без повторов находит число его повторений
        в изначальном тексте. Слово и число помещает в кортеж и возвращает список таких кортежей"""
 
     def __init__(self, *args):
-        self.list_without_repeat = args[0]
-        self.list_with_repeat = args[1]
+        self.list_without_repeat = list(set(args[0]))
+        self.list_with_repeat = args[0]
 
     def get_result(self):
         list_of_items = []
@@ -45,7 +45,7 @@ class HandlerValueAndDigitRepeat:
             if words == "":
                 continue
             number = self.list_with_repeat.count(words)
-            list_of_items.append((words, number))
+            list_of_items.append(WordRepeat(words, number))
         return list_of_items
 
 
@@ -56,13 +56,13 @@ class FinderMostBigRepeat:
        самое большое число повторений из существующих в этом списке"""
 
     def __init__(self, *args):
-        self.args = args
+        self.list_word_repeat = args[0]
 
     def get_result(self):
         count = 0
-        for x in self.args[0]:
-            if x[1] > count:
-                count = x[1]
+        for x in self.list_word_repeat:
+            if x.repeat > count:
+                count = x.repeat
         return count
 
 
@@ -86,7 +86,38 @@ class HandlerRatingOfRepeat:
 
         for x in range(self.max_reply, 0, -1):
             for y in self.items_list:
-                if y[1] == x:
+                if y.repeat == x:
                     finally_list.append(y)
 
         return finally_list
+
+
+class CheckAvailability:
+
+    """"""
+
+    def __init__(self, *args):
+        self.object_of_model = args[0]
+        self.list_of_word_repeat = args[1]
+
+        self.word_list_from_database = []
+        self.list_of_word_repeat_bool = []
+
+    def parsing_object(self):
+        for x in self.object_of_model:
+            gated_eng_word = x.eng_word
+            self.word_list_from_database.append(gated_eng_word)
+
+    def execute_checking(self):
+        for obj in self.list_of_word_repeat:
+            bool_value = None
+            if obj.word in self.word_list_from_database:
+                bool_value = 1
+            else:
+                bool_value = 0
+            self.list_of_word_repeat_bool.append(WordRepeatBool(word=obj.word,
+                                                                repeat=obj.repeat,
+                                                                bool_value=bool_value))
+
+    def get_result(self):
+        return self.list_of_word_repeat_bool

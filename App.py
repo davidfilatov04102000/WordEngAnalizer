@@ -1,14 +1,17 @@
 from flask import Flask, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from services.GetRatingOfWord.common_interface import CommonInterface
+from services.GetRatingOfWord.to_help import query
 import pprint
 
+for_temporary_storage = None
 
 App = Flask(__name__)
 
 App.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///main_database.db"
 
 db = SQLAlchemy(App)
+
 
 
 class Dictionary(db.Model):
@@ -20,31 +23,34 @@ class Dictionary(db.Model):
         return "<Dictionary %r>" % self.id
 
 
-with App.app_context():
-    dicty = Dictionary(eng_word="dfg", rus_word="rht")
-    db.session.add(dicty)
-    db.session.commit()
+# with App.app_context():
+#     dicty = Dictionary(eng_word="dfg", rus_word="rht")
+#     db.session.add(dicty)
+#     db.session.commit()
 
 
 @App.route("/", methods=["GET", "POST"])
 def analyzer():
+    global for_temporary_storage
+    dicty = Dictionary.query.all()
+
     if request.method == "POST":
         try:
             text = request.form["main_field"]
-            object_handler = CommonInterface(text)
-            result = object_handler.get_result()
+            result = query(CommonInterface, text, dicty)
+            for_temporary_storage = result.copy()
             return render_template("response.html", articles=result)
         except:
-            pass
+            word = request.form["word"]
+            print(word)
+            return render_template("response.html", articles=for_temporary_storage)
+
     else:
         return render_template("query.html")
 
 
 @App.route("/dictionary")
 def dictionary():
-    data = Dictionary.query.all()
-    for x in data:
-        print(x.eng_word, x.rus_word, sep="  ---  ")
     return render_template("dictionary.html")
 
 
