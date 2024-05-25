@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
-from services.common_interface import CommonInterface
+from services.GetRatingOfWord.common_interface import CommonInterface
 import pprint
 
 
@@ -20,19 +20,31 @@ class Dictionary(db.Model):
         return "<Dictionary %r>" % self.id
 
 
+with App.app_context():
+    dicty = Dictionary(eng_word="dfg", rus_word="rht")
+    db.session.add(dicty)
+    db.session.commit()
+
+
 @App.route("/", methods=["GET", "POST"])
 def analyzer():
     if request.method == "POST":
-        text = request.form["main_field"]
-        object_handler = CommonInterface(text)
-        result = object_handler.get_result()
-        return render_template("response.html", articles=result)
+        try:
+            text = request.form["main_field"]
+            object_handler = CommonInterface(text)
+            result = object_handler.get_result()
+            return render_template("response.html", articles=result)
+        except:
+            pass
     else:
         return render_template("query.html")
 
 
 @App.route("/dictionary")
 def dictionary():
+    data = Dictionary.query.all()
+    for x in data:
+        print(x.eng_word, x.rus_word, sep="  ---  ")
     return render_template("dictionary.html")
 
 

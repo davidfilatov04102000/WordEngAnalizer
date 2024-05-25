@@ -16,9 +16,15 @@
                 <input type="text" class="field_for_small_form" value="{{ res[1] }}">
             </div>
             <div class="form_right_block">
-                <button class="button_for_save_word">
-                    +
-                </button>
+                {% if res[1] == 1 %}
+                    <button class="button_for_save_word_red">
+                        +
+                    </button>
+                {% else %}
+                    <button class="button_for_save_word_green">
+                        +
+                    </button>
+                {% endif %}
             </div>
         </form>
     </div>
