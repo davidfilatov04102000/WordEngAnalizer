@@ -1,9 +1,23 @@
 from flask import Flask, render_template, url_for, request
+from flask_sqlalchemy import SQLAlchemy
 from services.common_interface import CommonInterface
 import pprint
 
 
 App = Flask(__name__)
+
+App.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///main_database.db"
+
+db = SQLAlchemy(App)
+
+
+class Dictionary(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    eng_word = db.Column(db.String(200), nullable=False)
+    rus_word = db.Column(db.String(200), nullable=False)
+
+    def __repr__(self):
+        return "<Dictionary %r>" % self.id
 
 
 @App.route("/", methods=["GET", "POST"])
