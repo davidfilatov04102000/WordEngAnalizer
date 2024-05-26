@@ -2,16 +2,15 @@ from flask import Flask, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from services.GetRatingOfWord.common_interface import CommonInterface
 from services.GetRatingOfWord.to_help import query
+from services.LanguageInterpreter import lang_interpreter
+from services.checkavailability_abs import abstract_check_availability
 import pprint
 
 for_temporary_storage = None
 
 App = Flask(__name__)
-
 App.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///main_database.db"
-
 db = SQLAlchemy(App)
-
 
 
 class Dictionary(db.Model):
@@ -21,12 +20,6 @@ class Dictionary(db.Model):
 
     def __repr__(self):
         return "<Dictionary %r>" % self.id
-
-
-# with App.app_context():
-#     dicty = Dictionary(eng_word="dfg", rus_word="rht")
-#     db.session.add(dicty)
-#     db.session.commit()
 
 
 @App.route("/", methods=["GET", "POST"])
@@ -42,8 +35,20 @@ def analyzer():
             return render_template("response.html", articles=result)
         except:
             word = request.form["word"]
-            print(word)
-            return render_template("response.html", articles=for_temporary_storage)
+            rus_word = lang_interpreter(word)
+
+            dict_object = Dictionary(eng_word=word, rus_word=rus_word)
+
+            try:
+                db.session.add(dict_object)
+                db.session.commit()
+                dicty_2 = Dictionary.query.all()
+                result_check = abstract_check_availability(dicty_2, for_temporary_storage)
+                for_temporary_storage = result_check
+                return render_template("response.html", articles=result_check)
+
+            except:
+                return "произошла ошибка при сохранении данных"
 
     else:
         return render_template("query.html")
@@ -51,7 +56,8 @@ def analyzer():
 
 @App.route("/dictionary")
 def dictionary():
-    return render_template("dictionary.html")
+    data = Dictionary.query.all()
+    return render_template("dictionary.html", articles=data)
 
 
 @App.route("/workout")

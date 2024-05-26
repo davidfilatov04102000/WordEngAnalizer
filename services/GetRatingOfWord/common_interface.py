@@ -1,5 +1,5 @@
 from .independent_classes import WordListFromString, HandlerValueAndDigitRepeat, FinderMostBigRepeat
-from .independent_classes import HandlerRatingOfRepeat, CheckAvailability
+from .independent_classes import HandlerRatingOfRepeat, CheckAvailability, CheckingExisting
 from .to_help import query
 
 
@@ -19,7 +19,9 @@ class CommonInterface:
     def get_result(self):
         only_word_list = query(WordListFromString, self.text)
 
-        list_of_tuples_with_items = query(HandlerValueAndDigitRepeat, only_word_list)
+        existing_word_list = query(CheckingExisting, only_word_list)
+
+        list_of_tuples_with_items = query(HandlerValueAndDigitRepeat, existing_word_list)
 
         most_big_digit_of_repeat = query(FinderMostBigRepeat, list_of_tuples_with_items)
 

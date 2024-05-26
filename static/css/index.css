@@ -134,6 +134,12 @@ body {
     border-radius: 4px;
 }
 
+.button_for_save_word_green:hover {
+    background-color: #08a608;
+    border: 1px solid #08a608;
+}
+
+
 .button_for_save_word_red {
     width: 90%;
     height: 26px;
@@ -141,4 +147,11 @@ body {
     border: 1px solid #ff000d;
     border-radius: 4px;
 }
+
+
+.button_for_save_word_red:hover {
+    background-color: #b50912;
+    border: 1px solid #b50912;
+}
+
 

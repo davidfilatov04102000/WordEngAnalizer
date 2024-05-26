@@ -1,6 +1,7 @@
 from .to_help import WordRepeat, WordRepeatBool
 from .letters_library import list_all_letters_base
 from typing import List
+import nltk
 
 
 class WordListFromString:
@@ -24,6 +25,21 @@ class WordListFromString:
         finally_text = "".join(list_only_letter)
 
         return finally_text.split(" ")
+
+
+class CheckingExisting:
+    def __init__(self, *args):
+        self.list_of_word = args[0]
+        self.existing_word = []
+
+    def get_result(self) -> List:
+        english_vocab = set(w.lower() for w in nltk.corpus.words.words())
+        for word in self.list_of_word:
+            if len(word) < 2:
+                continue
+            elif word in english_vocab:
+                self.existing_word.append(word)
+        return self.existing_word
 
 
 class HandlerValueAndDigitRepeat:
