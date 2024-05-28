@@ -4,8 +4,18 @@
 
 {% block content %}
     <div class="title_for_form">
-        <h3>Вставьте большой текст в форму ниже</h3>
+        <h3>Вас приветствует Анализатор англоязычного текста</h3>
     </div>
+    <div class="description_block_for_analyzer">
+        <p>
+            На этой странице чуть ниже вы видите большое текстовое поле. В него
+            вы можете вставить текст очень большого размера, после отправки
+            страница вернёт "Таблицу" рейтинга повтряемости слов.
+
+            Подробнее о программе в разделе <a href="/about">О программе</a>
+        </p>
+    </div>
+
     <div class="form">
         <form method="post">
             <textarea name="main_field" id="main_text_field_for_analiz" class="main_field" placeholder="  Вставьте большой текст">

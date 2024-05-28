@@ -69,18 +69,24 @@ body {
     margin-bottom: 3%;
 }
 
-
 .title_for_form {
+    float: left;
+    width: 100%;
     text-align: center;
     margin-bottom: 15px;
 }
 
+.description_block_for_analyzer {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
 
 .form {
     width: 70%;
     margin-left: 15%;
 }
-
 
 .main_field {
     width: 100%;
@@ -152,6 +158,88 @@ body {
 .button_for_save_word_red:hover {
     background-color: #b50912;
     border: 1px solid #b50912;
+}
+
+.table_for_dictionary_block {
+    float: left;
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+.table_for_dictionary {
+    width: 100%;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 5px;
+    background-color: #d3fac5;
+    border: 10px solid #d3fac5;
+    border-radius: 10px;
+}
+
+.table_column_for_dictionary:hover {
+    background-color: #dfe0de;
+    border-color: #dfe0de;
+}
+
+.table_column_for_dictionary {
+    height: 30px;
+    background: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding 30px;
+}
+
+.tool_bar_for_dictionary_block {
+    float: left;
+    width 100%;
+    height: auto;
+    background-color: #d3fac5;
+    border: 10px solid #d3fac5;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.content_for_tool_bar {
+    float: left;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.title_for_tool_bar_block {
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.button_for_mode_view_block {
+    float: left;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.button_show_all_block {
+    float: left;
+    width: 33%;
+}
+
+.button_show_all_block button {
+
+}
+
+.button_show_only_eng_block {
+    float: left;
+    width: 33%;
+}
+
+.button_show_only_eng_block {
+    float: left;
+    width: 33%;
 }
 
 

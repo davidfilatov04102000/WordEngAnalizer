@@ -1,0 +1,152 @@
+.workout_block {
+    float: left;
+    width: 100%;
+    background-color: #befcb3;
+    border: 1px solid #befcb3;
+    border-radius: 6px;
+}
+
+
+.content_in_workout_block {
+    float: left;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.choice_mode_of_workout_block {
+    float: left;
+    width: 60%;
+    margin-left: 25%;
+}
+
+.title_for_choice_mode_block {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.title_for_choice_mode_block h3 {
+    position: relative;
+    left: 15px;
+}
+
+
+.buttons_for_choice_mode_block {
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.button_eng_mode_block {
+    float: left;
+    width: 45%;
+
+}
+
+.button_rus_mode_block {
+    float: left;
+    width: 45%;
+}
+
+.button_rus_mode_block button {
+    width: 90%;
+}
+
+.chat_for_workout_block {
+    float: left;
+    width: 80%;
+}
+
+.chat_for_workout_block button {
+    width: 90%;
+}
+
+
+.chat_for_workout_block {
+    width: 100%;
+    background-color: #e5ffe0;
+    border: 1px solid #e5ffe0;
+    border-radius: 5px;
+}
+
+.content_in_chat_for_workout_block {
+    width: 96%;
+    margin-left: 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.field_for_message_block {
+    width: 100%;
+    overflow: auto;
+    background-color: #5df07b;
+    border: 1px solid #a7fa96;
+    border-radius: 4px;
+}
+
+.question_from_bot_block {
+    width: 60%;
+    height: 40px;
+    background-color: #30c7ba;
+    border: 1px solid #30c7ba;
+    border-radius: 10px 10px 10px 0;
+    margin-left: 15px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.text_in_question_from_bot_block {
+    float: left;
+    width: 95%;
+    position: relative;
+    left: 5%;
+    top: 10px;
+    text-align: left;
+}
+
+.answer_from_user_block {
+    width: 60%;
+    height: 40px;
+    background-color: #30c7ba;
+    border: 1px solid #30c7ba;
+    border-radius: 10px 10px 0;
+    margin-left: 200px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.text_in_answer_from_user_block {
+    width: 95%;
+    position: relative;
+    top: 10px;
+    right: 3%;
+    text-align: right
+}
+
+.form_for_answer_block {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.input_for_user_answer {
+    width: 80%;
+    height: 25px;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+.button_for_send_user_answer {
+    width: 18%;
+    height: 25px;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+/*.button_for_continue_workout_block {
+    width: 27%;
+    position: relative;
+    left: 73%;
+    bottom: 10px;
+}*/

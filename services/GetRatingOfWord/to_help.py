@@ -1,8 +1,19 @@
+from .letters_library import list_for_eng_letters
+
+
 def query(class_name, *args):
     instruction = class_name
     any_object = instruction(*args)
     any_result = any_object.get_result()
     return any_result
+
+
+def eng_isalpha(word: str):
+    i = 0
+    for e in word:
+        if e in list_for_eng_letters:
+            i += 1
+    return i == len(word)
 
 
 class WordRepeat:

@@ -3,5 +3,68 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-    <h1>тренировка</h1>
+    <div class="workout_block">
+        <div class="content_in_workout_block">
+            <div class="choice_mode_of_workout_block">
+                <div class="title_for_choice_mode_block">
+                    <h3>Выберите язык опроса</h3>
+                </div>
+                <div class="buttons_for_choice_mode_block">
+                    <div class="button_eng_mode_block">
+                        <button>На Английском</button>
+                    </div>
+                    <div class="button_rus_mode_block">
+                        <button>На Русском</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chat_for_workout_block">
+                <div class="content_in_chat_for_workout_block">
+                    <div class="field_for_message_block">
+                        {% if articles.bot_question %}
+                        <div class="question_from_bot_block">
+                            <div class="text_in_question_from_bot_block">
+                                {% if articles.mode == 1 %}
+                                    <p>{{ articles.bot_question.eng_word }}</p>
+                                {% else %}
+                                    <p>{{ articles.bot_question.rus_word }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                       {% if articles.messages %}
+                            <div class="question_from_bot_block">
+                                <div class="text_in_question_from_bot_block">
+                                        <p>{{ articles.messages[0] }}</p>
+                                </div>
+                            </div>
+                            <div class="answer_from_user_block">
+                                <div class="text_in_answer_from_user_block">
+                                    <p>{{ articles.messages[1] }}</p>
+                                </div>
+                            </div>
+                            <div class="question_from_bot_block">
+                                <div class="text_in_question_from_bot_block">
+                                        <p>{{ articles.messages[2] }}</p>
+                                </div>
+                                <!--<div class="button_for_continue_workout_block">
+                                    <a href="/workout">
+                                        <button class="button_bot_continue_workout">
+                                            Продолжить
+                                        </button>
+                                    </a>
+                                </div>-->
+                            </div>
+                       {% endif %}
+                    </div>
+                    <div class="form_for_answer_block">
+                        <form method="post">
+                            <input type="text" name="user_answer" class="input_for_user_answer" placeholder="Ваш ответ">
+                            <input type="submit" class="button_for_send_user_answer">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

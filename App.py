@@ -4,12 +4,19 @@ from services.GetRatingOfWord.common_interface import CommonInterface
 from services.GetRatingOfWord.to_help import query
 from services.LanguageInterpreter import lang_interpreter
 from services.checkavailability_abs import abstract_check_availability
+from services.for_workout import checking
 import pprint
+import random
 
 for_temporary_storage = None
+list_for_temporary_storage = None
+the_set_value = None
+list_for_temporary_message = []
 
 App = Flask(__name__)
+
 App.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///main_database.db"
+
 db = SQLAlchemy(App)
 
 
@@ -20,6 +27,10 @@ class Dictionary(db.Model):
 
     def __repr__(self):
         return "<Dictionary %r>" % self.id
+
+
+# with App.app_context():
+#     db.create_all()
 
 
 @App.route("/", methods=["GET", "POST"])
@@ -54,15 +65,71 @@ def analyzer():
         return render_template("query.html")
 
 
-@App.route("/dictionary")
+@App.route("/dictionary", methods=["GET", "POST"])
 def dictionary():
     data = Dictionary.query.all()
-    return render_template("dictionary.html", articles=data)
+    button_name = 1
+
+    datas = {
+        "table": data,
+        "button": button_name
+    }
+
+    if request.method == "POST":
+        req_obj = request.form
+        button_name = int(str(req_obj.keys())[12:-3])
+
+        datas = {
+            "table": data,
+            "button": button_name
+        }
+        return render_template("dictionary.html", articles=datas)
+    else:
+        return render_template("dictionary.html", articles=datas)
 
 
-@App.route("/workout")
+@App.route("/workout", methods=["GET", "POST"])
 def workout():
-    return render_template("workout.html")
+    global the_set_value
+    global list_for_temporary_storage
+    global list_for_temporary_message
+
+    mode = 1
+
+    if request.method == "POST":
+        user_answer = request.form["user_answer"]
+        print(user_answer)
+        bot_answer = checking(the_set_value, user_answer)
+        print(bot_answer)
+
+        list_for_temporary_message.append(user_answer)
+        list_for_temporary_message.append(bot_answer)
+        print(list_for_temporary_message)
+
+        dataset = {
+            "messages": list_for_temporary_message
+        }
+
+        return render_template("workout.html", articles=dataset)
+    else:
+        data = Dictionary.query.all()
+        list_for_temporary_message.clear()
+        the_set_value = None
+
+        list_for_temporary_storage = data.copy()
+        the_set_value = random.choice(data)
+
+        if mode == 1:
+            list_for_temporary_message.append(the_set_value.eng_word)
+        else:
+            list_for_temporary_message.append(the_set_value.rus_word)
+
+        datas = {
+            "bot_question": the_set_value,
+            "mode": mode
+        }
+
+        return render_template("workout.html", articles=datas)
 
 
 @App.route("/about")
