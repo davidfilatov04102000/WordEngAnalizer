@@ -144,9 +144,9 @@
     border-radius: 3px;
 }
 
-/*.button_for_continue_workout_block {
+.button_for_continue_workout_block {
     width: 27%;
     position: relative;
     left: 73%;
     bottom: 10px;
-}*/
+}

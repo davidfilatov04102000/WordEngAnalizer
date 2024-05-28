@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="button_to_back">
+        <a href="/dictionary">
+            ← Назад
+        </a>
+    </div>
+    <div class="title_for_form">
+        <h3>Редактировать</h3>
+    </div>
+    {% for res in articles %}
+    <div class="small_form_block_for_edit">
+        <form method="post" class="small_form_for_edit">
+            <div class="form_left_block">
+                <input type="text" name="word" class="field_for_small_form" value="{{ res.eng_word }}">
+            </div>
+            <div class="form_middle_block">
+                <input type="text" name="repeat" class="field_for_small_form" value="{{ res.rus_word }}">
+            </div>
+            <div class="form_right_block">
+                <div class="button_for_edit_block">
+                    <button type="submit" name="button_save_word" value="{{ res.id }}" class="button_for_edit_word">
+                        ✏️
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="button_for_delete_block">
+            <a href="/delete_word/{{ res.id }}">
+                <button class="button_for_delete_word">
+                    🗑️
+                </button>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

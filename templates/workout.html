@@ -47,19 +47,19 @@
                                 <div class="text_in_question_from_bot_block">
                                         <p>{{ articles.messages[2] }}</p>
                                 </div>
-                                <!--<div class="button_for_continue_workout_block">
+                                <div class="button_for_continue_workout_block">
                                     <a href="/workout">
                                         <button class="button_bot_continue_workout">
                                             Продолжить
                                         </button>
                                     </a>
-                                </div>-->
+                                </div>
                             </div>
                        {% endif %}
                     </div>
                     <div class="form_for_answer_block">
                         <form method="post">
-                            <input type="text" name="user_answer" class="input_for_user_answer" placeholder="Ваш ответ">
+                            <input type="text" name="user_answer" class="input_for_user_answer" autocomplete="off" placeholder="Ваш ответ">
                             <input type="submit" class="button_for_send_user_answer">
                         </form>
                     </div>

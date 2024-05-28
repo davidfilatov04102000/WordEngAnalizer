@@ -83,6 +83,11 @@ body {
     margin-bottom: 30px;
 }
 
+.description_block_for_analyzer p {
+    margin-bottom: 20px;
+    color: #4f4a4b;
+}
+
 .form {
     width: 70%;
     margin-left: 15%;
@@ -228,9 +233,7 @@ body {
     width: 33%;
 }
 
-.button_show_all_block button {
 
-}
 
 .button_show_only_eng_block {
     float: left;
@@ -241,5 +244,59 @@ body {
     float: left;
     width: 33%;
 }
+
+.buttons_for_edit_block {
+    float: left;
+    width: 100%;
+}
+
+.edit_button_block {
+    float: left;
+    width: 33%;
+    margin-left: 37%;
+}
+
+.button_for_edit_block {
+    float: left;
+    width: 60%;
+}
+
+.button_for_edit_block button {
+    width: 80%;
+    height: 25px;
+    background-color: green;
+    border: 1px solid green;
+    border-radius: 5px;
+}
+
+.button_for_delete_block {
+    float: left;
+    width: 20%;
+}
+
+.button_for_delete_block button {
+    width: 80%;
+    height: 25px;
+    background-color: #f22e4b;
+    border: 1px solid #f22e4b;
+    border-radius: 5px;
+}
+
+.small_form_block_for_edit {
+    float: left;
+    width: 80%;
+    margin-left: 18%;
+    margin-bottom: 15px;
+}
+
+.small_form_for_edit {
+    float: left;
+    width: 60%;
+}
+
+
+
+
+
 
 

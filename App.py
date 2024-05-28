@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from services.GetRatingOfWord.common_interface import CommonInterface
 from services.GetRatingOfWord.to_help import query
@@ -86,6 +86,38 @@ def dictionary():
         return render_template("dictionary.html", articles=datas)
     else:
         return render_template("dictionary.html", articles=datas)
+
+
+@App.route("/edit_dictionary", methods=["GET", "POST"])
+def edit_dictionary():
+    data = Dictionary.query.all()
+    if request.method == "POST":
+        datas = Dictionary.query.get(int(request.form["button_save_word"]))
+
+        datas.eng_word = request.form["word"]
+        datas.rus_word = request.form["repeat"]
+
+        try:
+            db.session.commit()
+            return render_template("edit.html", articles=data)
+        except:
+            return "Произошла ошибка"
+
+    else:
+        return render_template("edit.html", articles=data)
+
+
+@App.route("/delete_word/<int:id>")
+def delete_word(id):
+    data = Dictionary.query.get(id)
+    try:
+        db.session.delete(data)
+        db.session.commit()
+        return redirect("/edit_dictionary")
+    except:
+        return "Произошла ошибка"
+
+
 
 
 @App.route("/workout", methods=["GET", "POST"])
