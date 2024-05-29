@@ -5,11 +5,9 @@ from services.GetRatingOfWord.to_help import query
 from services.LanguageInterpreter import lang_interpreter
 from services.checkavailability_abs import abstract_check_availability
 from services.for_workout import checking
-import pprint
 import random
 
 for_temporary_storage = None
-list_for_temporary_storage = None
 the_set_value = None
 list_for_temporary_message = []
 
@@ -27,10 +25,6 @@ class Dictionary(db.Model):
 
     def __repr__(self):
         return "<Dictionary %r>" % self.id
-
-
-# with App.app_context():
-#     db.create_all()
 
 
 @App.route("/", methods=["GET", "POST"])
@@ -118,12 +112,9 @@ def delete_word(id):
         return "Произошла ошибка"
 
 
-
-
 @App.route("/workout", methods=["GET", "POST"])
 def workout():
     global the_set_value
-    global list_for_temporary_storage
     global list_for_temporary_message
 
     mode = 1
@@ -148,20 +139,22 @@ def workout():
         list_for_temporary_message.clear()
         the_set_value = None
 
-        list_for_temporary_storage = data.copy()
-        the_set_value = random.choice(data)
+        try:
+            the_set_value = random.choice(data)
 
-        if mode == 1:
-            list_for_temporary_message.append(the_set_value.eng_word)
-        else:
-            list_for_temporary_message.append(the_set_value.rus_word)
+            if mode == 1:
+                list_for_temporary_message.append(the_set_value.eng_word)
+            else:
+                list_for_temporary_message.append(the_set_value.rus_word)
 
-        datas = {
-            "bot_question": the_set_value,
-            "mode": mode
-        }
+            datas = {
+                "bot_question": the_set_value,
+                "mode": mode
+            }
 
-        return render_template("workout.html", articles=datas)
+            return render_template("workout.html", articles=datas)
+        except:
+            return render_template("error.html")
 
 
 @App.route("/about")
