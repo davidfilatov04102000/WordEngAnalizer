@@ -30,14 +30,18 @@ class Dictionary(db.Model):
 @App.route("/", methods=["GET", "POST"])
 def analyzer():
     global for_temporary_storage
-    dicty = Dictionary.query.all()
+
+    dicty = list(db.session.execute(db.select(Dictionary).order_by(Dictionary.eng_word)).scalars())
 
     if request.method == "POST":
         try:
             text = request.form["main_field"]
+
             result = query(CommonInterface, text, dicty)
             for_temporary_storage = result.copy()
+
             return render_template("response.html", articles=result)
+
         except:
             word = request.form["word"]
             rus_word = lang_interpreter(word)
@@ -47,8 +51,11 @@ def analyzer():
             try:
                 db.session.add(dict_object)
                 db.session.commit()
-                dicty_2 = Dictionary.query.all()
+
+                dicty_2 = list(db.session.execute(db.select(Dictionary).order_by(Dictionary.eng_word)).scalars())
+
                 result_check = abstract_check_availability(dicty_2, for_temporary_storage)
+
                 for_temporary_storage = result_check
                 return render_template("response.html", articles=result_check)
 
@@ -61,39 +68,46 @@ def analyzer():
 
 @App.route("/dictionary", methods=["GET", "POST"])
 def dictionary():
-    data = Dictionary.query.all()
-    button_name = 1
+    data = list(db.session.execute(db.select(Dictionary).order_by(Dictionary.eng_word)).scalars())
+
+    button_number = 1
 
     datas = {
         "table": data,
-        "button": button_name
+        "button": button_number
     }
 
     if request.method == "POST":
         req_obj = request.form
-        button_name = int(str(req_obj.keys())[12:-3])
+        button_number = int(str(req_obj.keys())[12:-3])
 
         datas = {
             "table": data,
-            "button": button_name
+            "button": button_number
         }
+
         return render_template("dictionary.html", articles=datas)
+
     else:
         return render_template("dictionary.html", articles=datas)
 
 
 @App.route("/edit_dictionary", methods=["GET", "POST"])
 def edit_dictionary():
-    data = Dictionary.query.all()
+    data = list(db.session.execute(db.select(Dictionary).order_by(Dictionary.eng_word)).scalars())
+
     if request.method == "POST":
-        datas = Dictionary.query.get(int(request.form["button_save_word"]))
+        id_of_object = int(request.form["button_save_word"])
+        datas = db.get_or_404(Dictionary, id_of_object)
 
         datas.eng_word = request.form["word"]
         datas.rus_word = request.form["repeat"]
 
         try:
             db.session.commit()
+
             return render_template("edit.html", articles=data)
+
         except:
             return "Произошла ошибка"
 
@@ -103,11 +117,14 @@ def edit_dictionary():
 
 @App.route("/delete_word/<int:id>")
 def delete_word(id):
-    data = Dictionary.query.get(id)
+    data = db.get_or_404(Dictionary, id)
+
     try:
         db.session.delete(data)
         db.session.commit()
+
         return redirect("/edit_dictionary")
+
     except:
         return "Произошла ошибка"
 
@@ -121,13 +138,11 @@ def workout():
 
     if request.method == "POST":
         user_answer = request.form["user_answer"]
-        print(user_answer)
+
         bot_answer = checking(the_set_value, user_answer)
-        print(bot_answer)
 
         list_for_temporary_message.append(user_answer)
         list_for_temporary_message.append(bot_answer)
-        print(list_for_temporary_message)
 
         dataset = {
             "messages": list_for_temporary_message
@@ -135,7 +150,8 @@ def workout():
 
         return render_template("workout.html", articles=dataset)
     else:
-        data = Dictionary.query.all()
+        data = list(db.session.execute(db.select(Dictionary).order_by(Dictionary.eng_word)).scalars())
+
         list_for_temporary_message.clear()
         the_set_value = None
 
