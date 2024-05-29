@@ -27,6 +27,10 @@ class Dictionary(db.Model):
         return "<Dictionary %r>" % self.id
 
 
+with App.app_context():
+    db.create_all()
+
+
 @App.route("/", methods=["GET", "POST"])
 def analyzer():
     global for_temporary_storage
